@@ -3,7 +3,6 @@ import math #........................Fonctionnalités mathématiques
 import numpy as np #.................Numpy pour travailler avec des tableaux
 import plotly as py #................Importer Plotly 
 import plotly.graph_objs as go #.....Importer des objets graphiques
-py.offline.init_notebook_mode(connected=True) #Configuration du traçage hors ligne
 import streamlit as st
 
 

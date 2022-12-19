@@ -96,20 +96,18 @@ def E_trans(MYOUNG) :
 ###########################################################################################################
 st.sidebar.image('ME1.png')
 st.sidebar.title("**Les données de départ :** 👇")
-span = st.sidebar.number_input('la portée de la poutre')
-A = st.sidebar.number_input("Distance par rapport à l'appui gauche")
-B = st.sidebar.number_input("Distance par rapport à l'appui droit")
+span = st.sidebar.number_input('la portée de la poutre (m)')
+A = st.sidebar.number_input("Distance par rapport à l'appui gauche (m)")
+B = st.sidebar.number_input("Distance par rapport à l'appui droit (m)")
 E1 = st.sidebar.selectbox("Module de Young", ("20 GPa (Béton)", "30 GPa (Béton)","40 GPa (Béton)","50 GPa (Béton)","196 GPa (Fer)"))
 E = E_trans(E1)
-st.sidebar.write("le module de Young est :",E)
 YN = st.sidebar.multiselect("Selectionnez les forces",["Force concentrée","Charge uniformément répartie","Charge linéairement variée","Moment dans un point donné"])
 YN_DEFLECTION = st.sidebar.selectbox('Voulez-vous analyser la flèche de la poutre ?',('Non', 'Oui'))
 if YN_DEFLECTION == 'Oui' : 
     st.sidebar.subheader('Données de la section de la poutre')
-    a = st.sidebar.number_input("Entrez la valeur de la base (b)")
-    b = st.sidebar.number_input("Entrez la valeur de la hauteur(h)")
+    a = st.sidebar.number_input("Entrez la valeur de la base (b) en (m)")
+    b = st.sidebar.number_input("Entrez la valeur de la hauteur(h) en (m)")
     I= (a*(b**3)/12)
-    st.sidebar.write("Le moment d'inertie est:", I)
 
 ###########################################################################################################
 ###########################################################################################################
@@ -195,7 +193,7 @@ if "Force concentrée" in YN :
             NB_PL = st.slider('Combien de forces concentrés', 1, 6, step=1)
             st.image('Force concentrée.png') #Schéma descriptif
             for i in range(0,NB_PL,1) :
-                loc=st.number_input("L'emplacement de la Force N°{one}".format(one=i+1))
+                loc=st.number_input("L'emplacement de la Force N°{one} en (m)".format(one=i+1))
                 xmag=st.number_input("L'amplitude horizontale de la Force N°{one} --- | (+) à droite & (-) à gauche|".format(one=i+1))
                 ymag=st.number_input("L'amplitude verticale de la Force N°{one} --- | (+) vers le haut & (-) vers le bas|".format(one=i+1))
                 pointLoads = np.append(pointLoads,[np.array([loc, xmag, ymag])], axis=0)
@@ -210,8 +208,8 @@ if "Charge uniformément répartie" in YN :
             NB_UDL = st.slider('Combien de Charges réparties vous avez ?', 1, 6, step=1)
             st.image('Charge uniformément répartie.png') #Schéma descriptif
             for i in range(0,NB_UDL,1) :
-                xStart=st.number_input("L'emplacement du début de la charge répartie N°{one}".format(one=i+1))
-                xEnd=st.number_input("L'emplacement de la fin de la charge répartie N°{one}".format(one=i+1))
+                xStart=st.number_input("L'emplacement du début de la charge répartie N°{one} en (m)".format(one=i+1))
+                xEnd=st.number_input("L'emplacement de la fin de la charge répartie N°{one} en (m)".format(one=i+1))
                 yMag=st.number_input("L'amplitude verticale de la charge répartie N°{one} --- | (+) vers le haut & (-) vers le bas|".format(one=i+1))
                 distributedLoads = np.append(distributedLoads,[np.array([xStart, xEnd, yMag])], axis=0)
 
@@ -223,8 +221,8 @@ if "Charge linéairement variée" in YN :
             NB_LDL = st.slider('Combien de Charges linéairement variées vous avez ?', 1, 6, step=1)
             st.image('Charge linéairement variée.png') #Schéma descriptif
             for i in range(0,NB_LDL,1) :
-                xStart=st.number_input("L'emplacement du début de la charge linéairement variée N°{one}".format(one=i+1))
-                xEnd=st.number_input("L'emplacement de la fin de la charge linéairement variée N°{one}".format(one=i+1))
+                xStart=st.number_input("L'emplacement du début de la charge linéairement variée N°{one} en (m)".format(one=i+1))
+                xEnd=st.number_input("L'emplacement de la fin de la charge linéairement variée N°{one} en (m)".format(one=i+1))
                 startMag=st.number_input("L'amplitude verticale de début de la charge linéairement variée N°{one} --- | (+) vers le haut & (-) vers le bas|".format(one=i+1))
                 endMag=st.number_input("L'amplitude verticale de la fin de la charge linéairement variée N°{one} --- | (+) vers le haut & (-) vers le bas|".format(one=i+1))
                 linearLoads = np.append(linearLoads,[np.array([xStart, xEnd, startMag, endMag])], axis=0)
@@ -238,7 +236,7 @@ if "Moment dans un point donné" in YN :
             NB_PM = st.slider('Combien de moments vous avez ?', 1, 6, step=1)
             st.image('Moment.png') #Schéma descriptif
             for i in range(0,NB_PM,1) :
-                location=st.number_input("L'emplacement du moment N°{one}".format(one=i+1))
+                location=st.number_input("L'emplacement du moment N°{one} en (m)".format(one=i+1))
                 mag=st.number_input("La valeur du moment N°{one} --- | le sens des aiguilles est positif |".format(one=i+1))
                 pointMoments = np.append(pointMoments,[np.array([location, mag])], axis=0)   
 
